@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Sources/Scenes/Bootstrap.unity
+    guid: 7ccedec300deec54bbca5696b0750c29
+  - enabled: 1
+    path: Assets/Sources/Scenes/EventSystem.unity
+    guid: d862eb11b7bee0747b21e4c84e3edf0b
+  - enabled: 1
+    path: Assets/Sources/Scenes/MainCamera.unity
+    guid: 1c2ef1c6e425d694a922dc57163ecb93
+  - enabled: 1
+    path: Assets/Sources/Scenes/RecordingRoom.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Sources/Scenes/RecordingOverviewRoom.unity
+    guid: c6febf35f1653cb48967d41202ce66ec
+  - enabled: 1
+    path: Assets/Sources/Scenes/SunLight.unity
+    guid: 4fd86a329b83aa94798a603ef52ae9a8
   m_configObjects: {}
