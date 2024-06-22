@@ -1,4 +1,7 @@
+using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace CameraTrajector.Client
 {

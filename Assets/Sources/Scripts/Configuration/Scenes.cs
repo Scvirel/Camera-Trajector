@@ -1,6 +1,6 @@
 namespace CameraTrajector.Client
 {
-    public static class Scenes
+    public sealed class Scenes
     {
         public const string Bootstrap = "Bootstrap";
         public const string EventSystem = "EventSystem";

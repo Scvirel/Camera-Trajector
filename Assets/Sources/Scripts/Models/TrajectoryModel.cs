@@ -19,15 +19,4 @@ namespace CameraTrajector.Client
             Rotations = rotations;
         }
     }
-
-    [Serializable]
-    public sealed class MovementTrajectoryData
-    {
-        public List<TrajectoryModel> TrajectoryModels;
-
-        public MovementTrajectoryData(List<TrajectoryModel> trajectoryModels)
-        {
-            TrajectoryModels = trajectoryModels;
-        }
-    }
 }

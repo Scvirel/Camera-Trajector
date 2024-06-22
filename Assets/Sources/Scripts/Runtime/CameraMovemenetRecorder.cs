@@ -10,6 +10,7 @@ namespace CameraTrajector.Client
     {
         [Inject] private readonly IRecordings _recordings;
 
+        [Range(1,60)]
         [SerializeField] private int _timeoutSec = 3;
 
         private Transform _cameraTransform;
@@ -32,6 +33,12 @@ namespace CameraTrajector.Client
         {
             Debug.Log("Recording started!");
 
+            if (_locations.Count > 0 || _rotations.Count > 0)
+            {
+                _locations.Clear();
+                _rotations.Clear();
+            }
+
             _recordingProcess = StartCoroutine(TransformRecording());
         }
 
@@ -52,9 +59,6 @@ namespace CameraTrajector.Client
 
             PlayerPrefs.SetString(Paths.RecordingsDataPrefs, JsonUtility.ToJson(_recordings.Value));
             PlayerPrefs.Save();
-
-            _locations.Clear();
-            _rotations.Clear();
         }
 
         private IEnumerator TransformRecording()
@@ -62,7 +66,7 @@ namespace CameraTrajector.Client
             while (true)
             {
                 Debug.Log($"Saved Location : ({_cameraTransform.position.x},{_cameraTransform.position.y},{_cameraTransform.position.z})");
-                Debug.Log($"Saved Rotation : ({_cameraTransform.rotation.x},{_cameraTransform.rotation.y},{_cameraTransform.rotation.z})");
+                Debug.Log($"Saved Rotation : ({_cameraTransform.eulerAngles.x},{_cameraTransform.eulerAngles.y},{_cameraTransform.eulerAngles.z})");
 
                 _locations.Add(
                     new XYZDto(
@@ -74,9 +78,9 @@ namespace CameraTrajector.Client
 
                 _rotations.Add(
                   new XYZDto(
-                      _cameraTransform.rotation.x,
-                      _cameraTransform.rotation.y,
-                      _cameraTransform.rotation.z
+                      _cameraTransform.eulerAngles.x,
+                      _cameraTransform.eulerAngles.y,
+                      _cameraTransform.eulerAngles.z
                       )
                   );
 
