@@ -7,21 +7,13 @@ namespace CameraTrajector.Client
 {
     public sealed class GameBootstraper : MonoBehaviour
     {
-        [Inject] private readonly IRecordings _recordings = default;
+        [Inject] private readonly IRecordings _recordings;
 
         private void Start()
         {
             StartCoroutine(LoadDefaultScenes());
 
-            if (PlayerPrefs.HasKey(Paths.RecordingsDataPrefs))
-            {
-                string str = PlayerPrefs.GetString(Paths.RecordingsDataPrefs);
-
-                _recordings.Value =
-                    JsonUtility.FromJson<MovementTrajectoryData>(
-                        PlayerPrefs.GetString(Paths.RecordingsDataPrefs)
-                        );
-            }
+            _recordings.Value.FromPrefsJson(Paths.RecordingsDataPrefs);
         }
 
         private IEnumerator LoadDefaultScenes()

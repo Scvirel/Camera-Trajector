@@ -29,14 +29,16 @@ public class TrajectoryEditorMenu : EditorWindow
     {
         if (_trajectoryData == null || _trajectoryData.TrajectoryModels.Count == 0)
         {
-            GUILayout.Label("No any trajectories in PlayerPrefs. Please create some", EditorStyles.boldLabel);
+            GUILayout.Label("No any trajectories in PlayerPrefs.\nPlease create some NEW or reopen this window", EditorStyles.boldLabel);
         }
-
-        foreach (TrajectoryModel model in _trajectoryData.TrajectoryModels)
+        else
         {
-            if (GUILayout.Button(model.Id))
+            foreach (TrajectoryModel model in _trajectoryData.TrajectoryModels)
             {
-                _lastSelected = model;
+                if (GUILayout.Button(model.Id))
+                {
+                    _lastSelected = model;
+                }
             }
         }
     }
@@ -60,7 +62,7 @@ public class TrajectoryEditorMenu : EditorWindow
             points[i] = _lastSelected.GetLocation(i);
         }
 
-        Handles.color = Color.green;
+        Handles.color = Color.cyan;
         Handles.DrawPolyLine(points);
     }
 }

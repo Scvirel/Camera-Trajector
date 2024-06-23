@@ -3,7 +3,7 @@ using Zenject;
 
 namespace CameraTrajector.Client
 {
-    public sealed class RecordingsInstaller : MonoInstaller
+    public sealed class RecordingBehaviourInstaller : MonoInstaller
     {
         [SerializeField] private RecordingsEntry _recordingEntry;
 

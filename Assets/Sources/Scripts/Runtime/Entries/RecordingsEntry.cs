@@ -7,7 +7,7 @@ namespace CameraTrajector.Client
 {
     public sealed class RecordingsEntry : MonoBehaviour
     {
-        [Inject] private readonly SignalBus _signalBus = default;
+        [Inject] private readonly SignalBus _signalBus;
 
         public class Factory : PlaceholderFactory<RecordingsEntry>
         { }

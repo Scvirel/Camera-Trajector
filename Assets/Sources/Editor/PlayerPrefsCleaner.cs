@@ -7,5 +7,6 @@ public sealed class PlayerPrefsCleaner : Editor
     private static void ClearPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();
+        EditorPrefs.DeleteAll();
     }
 }

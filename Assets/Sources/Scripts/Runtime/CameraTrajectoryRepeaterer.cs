@@ -6,14 +6,18 @@ namespace CameraTrajector.Client
 {
     public sealed class CameraTrajectoryRepeaterer : MonoBehaviour
     {
-        [Inject] private readonly SignalBus _signalBus = default;
+        [Inject] private readonly SignalBus _signalBus;
 
         private Transform _cameraTransform;
         private Coroutine _repeatingProcess;
 
+        private WaitForEndOfFrame _waiter;
+
         private void Start()
         {
             _cameraTransform = Camera.main.transform;
+            _waiter = new WaitForEndOfFrame();
+
             _signalBus.Subscribe<TrajectoryRepeatSignal>(Repeat);
         }
         private void OnDestroy()
@@ -58,8 +62,10 @@ namespace CameraTrajector.Client
                 {
                     _cameraTransform.position = Vector3.Lerp(currentPosition, targetPosition, elapsedTime / trajectory.TimeoutSec);
                     _cameraTransform.rotation = Quaternion.Lerp(currentRotation, targetRotation, elapsedTime / trajectory.TimeoutSec);
+
                     elapsedTime += Time.deltaTime;
-                    yield return null;
+
+                    yield return _waiter;
                 }
 
                 iterator++;

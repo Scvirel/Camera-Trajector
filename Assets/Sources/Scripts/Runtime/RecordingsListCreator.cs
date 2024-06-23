@@ -3,7 +3,7 @@ using Zenject;
 
 namespace CameraTrajector.Client
 {
-    public sealed class RecordingsListCreate : MonoBehaviour
+    public sealed class RecordingsListCreator : MonoBehaviour
     {
         [Inject] private readonly IRecordings _recordings;
         [Inject] private readonly RecordingsEntry.Factory _factory;
@@ -17,11 +17,9 @@ namespace CameraTrajector.Client
 
         private void CreateRecordings()
         {
-            RecordingsEntry tempRecording = default;
-
             foreach (TrajectoryModel model in _recordings.Value.TrajectoryModels)
             {
-                tempRecording = _factory.Create();
+                RecordingsEntry tempRecording = _factory.Create();
                 tempRecording.transform.SetParent(_parent);
                 tempRecording.transform.localScale = Vector3.one;
 

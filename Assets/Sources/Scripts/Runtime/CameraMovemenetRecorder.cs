@@ -10,13 +10,13 @@ namespace CameraTrajector.Client
     {
         [Inject] private readonly IRecordings _recordings;
 
-        [Range(1,60)]
-        [SerializeField] private int _timeoutSec = 3;
+        [Range(1, 60)]
+        [SerializeField] private int _timeoutSec = 1;
 
         private Transform _cameraTransform;
 
-        private List<XYZDto> _locations = new List<XYZDto>();
-        private List<XYZDto> _rotations = new List<XYZDto>();
+        private List<XYZDto> _locations;
+        private List<XYZDto> _rotations;
 
         private WaitForSeconds _waiter;
 
@@ -33,15 +33,11 @@ namespace CameraTrajector.Client
         {
             Debug.Log("Recording started!");
 
-            if (_locations.Count > 0 || _rotations.Count > 0)
-            {
-                _locations.Clear();
-                _rotations.Clear();
-            }
+            _locations = new List<XYZDto>();
+            _rotations = new List<XYZDto>();
 
             _recordingProcess = StartCoroutine(TransformRecording());
         }
-
         public void CompleteRecording()
         {
             StopCoroutine(_recordingProcess);
@@ -57,8 +53,7 @@ namespace CameraTrajector.Client
                     )
                 );
 
-            PlayerPrefs.SetString(Paths.RecordingsDataPrefs, JsonUtility.ToJson(_recordings.Value));
-            PlayerPrefs.Save();
+            _recordings.Value.ToJsonPrefs(Paths.RecordingsDataPrefs);
         }
 
         private IEnumerator TransformRecording()
@@ -68,21 +63,8 @@ namespace CameraTrajector.Client
                 Debug.Log($"Saved Location : ({_cameraTransform.position.x},{_cameraTransform.position.y},{_cameraTransform.position.z})");
                 Debug.Log($"Saved Rotation : ({_cameraTransform.eulerAngles.x},{_cameraTransform.eulerAngles.y},{_cameraTransform.eulerAngles.z})");
 
-                _locations.Add(
-                    new XYZDto(
-                        _cameraTransform.position.x,
-                        _cameraTransform.position.y,
-                        _cameraTransform.position.z
-                        )
-                    );
-
-                _rotations.Add(
-                  new XYZDto(
-                      _cameraTransform.eulerAngles.x,
-                      _cameraTransform.eulerAngles.y,
-                      _cameraTransform.eulerAngles.z
-                      )
-                  );
+                _locations.Add(_cameraTransform.position.SimplifyTo<XYZDto>());
+                _rotations.Add(_cameraTransform.eulerAngles.SimplifyTo<XYZDto>());
 
                 yield return _waiter;
             }

@@ -1,11 +1,9 @@
 using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace CameraTrajector.Client
 {
-    public sealed class CameraRotation : MonoBehaviour
+    public sealed class CameraRotator : MonoBehaviour
     {
         [SerializeField]
         [Range(0.1f, 10f)]
@@ -26,13 +24,10 @@ namespace CameraTrajector.Client
         private Transform _cameraTransform;
         private Vector2 _directionDelta;
 
-        //For current prototype enough introducing some constant (0;0;0) in future probably will select from binded config or so on
-        private Vector3 TartgetLocation = Vector3.zero;
-
         private void Start()
         {
             _cameraTransform = Camera.main.transform;
-            _targetDistance = Vector3.Distance(_cameraTransform.position, TartgetLocation);
+            _targetDistance = Vector3.Distance(_cameraTransform.position, Constants.TargetLocation);
         }
 
         private void Update()
@@ -98,7 +93,7 @@ namespace CameraTrajector.Client
 
             _cameraTransform.rotation = Quaternion.Slerp(_cameraTransform.rotation, rotationDelta, _slerp);
             _cameraTransform.position = _cameraTransform.rotation * direction;
-            _cameraTransform.LookAt(TartgetLocation);
+            _cameraTransform.LookAt(Constants.TargetLocation);
         }
     }
 }

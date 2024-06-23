@@ -15,7 +15,7 @@ namespace CameraTrajector.Client
 
         private IEnumerator Transition()
         {
-            //Good practice show any type of curtain popup here
+            //TODO:Probaly show any loading screen here
 
             AsyncOperation operation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
             yield return new WaitUntil(() => operation.isDone);
