@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public sealed class PlayerPrefsCleaner : Editor
+public sealed class PrefsCleaner : Editor
 {
     [MenuItem("CustomEditor/Clear Prefs")]
     private static void ClearPlayerPrefs()
