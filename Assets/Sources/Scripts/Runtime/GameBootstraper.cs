@@ -9,8 +9,12 @@ namespace CameraTrajector.Client
     {
         [Inject] private readonly IRecordings _recordings;
 
+        [SerializeField] private int _targetFrameRate = 60;
+
         private void Start()
         {
+            Application.targetFrameRate = _targetFrameRate;
+
             StartCoroutine(LoadDefaultScenes());
 
             _recordings.Value.FromPrefsJson(Paths.RecordingsDataPrefs);

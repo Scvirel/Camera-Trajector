@@ -10,8 +10,8 @@ namespace CameraTrajector.Client
     {
         [Inject] private readonly IRecordings _recordings;
 
-        [Range(1, 60)]
-        [SerializeField] private int _timeoutSec = 1;
+        [Range(0.01f, 60.0f)]
+        [SerializeField] private float _timeoutSec = 1.0f;
 
         private Transform _cameraTransform;
 

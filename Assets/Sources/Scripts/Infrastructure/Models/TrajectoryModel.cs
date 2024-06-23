@@ -7,11 +7,11 @@ namespace CameraTrajector.Client
     public sealed class TrajectoryModel
     {
         public string Id;
-        public int TimeoutSec;
+        public float TimeoutSec;
         public List<XYZDto> Locations;
         public List<XYZDto> Rotations;
 
-        public TrajectoryModel(string id, int timeoutSec,  List<XYZDto> locations, List<XYZDto> rotations)
+        public TrajectoryModel(string id, float timeoutSec,  List<XYZDto> locations, List<XYZDto> rotations)
         {
             Id = id;
             TimeoutSec = timeoutSec;
